@@ -11,7 +11,7 @@ func EoR(m *tg.NewMessage, msg string) error {
 		_, err := m.Edit(msg)
 		return err
 	} else {
-		_, err := m.Reply(msg)
+		_, err := m.Reply(msg, tg.SendOptions{ParseMode: "HTML"})
 		return err
 	}
 }

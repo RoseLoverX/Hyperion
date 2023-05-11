@@ -1,7 +1,6 @@
 package modules
 
 import (
-	"fmt"
 	"main/client"
 	"os/exec"
 
@@ -14,7 +13,6 @@ func shellHandler(m *tg.NewMessage) error {
 		return EoR(m, "Please Provide A Command")
 	}
 	out, err := shell(cmd)
-	fmt.Println(out, err)
 	if err != nil {
 		return EoR(m, err.Error())
 	}
