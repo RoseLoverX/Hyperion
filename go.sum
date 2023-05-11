@@ -1,0 +1,10 @@
+github.com/amarnathcjd/gogram v0.0.0-20230510060737-acdf02610ad3 h1:JQB+Q4PFVwxtn6J9y6sE5nwph3koUSDppN17mhCgeh8=
+github.com/amarnathcjd/gogram v0.0.0-20230510060737-acdf02610ad3/go.mod h1:FghQhQvApNCeFMz0GVaIxDS3rZMGEuTcDeYrt4i8Lac=
+github.com/amarnathcjd/gogram v0.0.0-20230510134255-2685c1eefe47 h1:syX5efb5tqkKQJsAcgHmBcb77GKnRh+/8/AwXc8mzoA=
+github.com/amarnathcjd/gogram v0.0.0-20230510134255-2685c1eefe47/go.mod h1:FghQhQvApNCeFMz0GVaIxDS3rZMGEuTcDeYrt4i8Lac=
+github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
+github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+golang.org/x/net v0.9.0 h1:aWJ/m6xSmxWBx+V0XRHTlrYrPG56jKsLdTFmsSsCzOM=
+golang.org/x/net v0.9.0/go.mod h1:d48xBJpPfHeWQsugry2m+kC02ZBRGRgulfHnEXEuWns=
