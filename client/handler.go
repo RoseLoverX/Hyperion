@@ -14,7 +14,7 @@ var CMDS = make(map[string]Handler)
 
 func RegCmd(command string, handler Handler) {
 	UserBot.AddMessageHandler(regexp.MustCompile(`(?i)^[`+CMD_PREFIXES+`]`+command), handler, &telegram.Filters{
-		Users: []int64{UserBot.CommanderId()},
+		Users: UserBot.CommanderId(),
 	})
 	CMDS[command] = handler
 }
