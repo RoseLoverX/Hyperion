@@ -28,6 +28,19 @@ func shell(cmd string) (string, error) {
 	return string(out), nil
 }
 
+func getPreview(m *tg.NewMessage) error {
+	url := m.Args()
+	req, err := client.UserBot.MessagesGetWebPage(url, 0)
+	if err != nil {
+		m.Reply("Error: "+ err.Error())
+		return nil
+	}
+	b, _ := json.Marshal(req)
+	m.Reply("<code>" + string(b) + "</code>")
+	return nil
+}
+
 func init() {
 	client.RegCmd("shell", shellHandler)
+	client.RegCmd("preview", getPreview)
 }
