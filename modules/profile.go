@@ -35,7 +35,7 @@ func setBioHandler(m *tg.NewMessage) error {
 	if bio == "" {
 		return EoR(m, "Please Provide A Bio")
 	}
-	_, err := client.UserBot.AccountUpdateProfile("", bio, "")
+	_, err := client.UserBot.AccountUpdateProfile("", "", bio)
 	if err != nil {
 		return EoR(m, err.Error())
 	}
