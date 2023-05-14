@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/amarnathcjd/gogram/telegram"
@@ -17,7 +18,7 @@ const (
 
 type Userbot struct {
 	*telegram.Client
-	commanderId int64
+	commanderId []int64
 	selfId      int64
 }
 
@@ -46,11 +47,11 @@ func NewUserbot(stringSession string) (*Userbot, error) {
 	}, nil
 }
 
-func (u *Userbot) SetCommanderId(id int64) {
+func (u *Userbot) SetCommanderId(id []int64) {
 	u.commanderId = id
 }
 
-func (u *Userbot) CommanderId() int64 {
+func (u *Userbot) CommanderId() []int64 {
 	return u.commanderId
 }
 
@@ -81,14 +82,19 @@ func InitiallizeUserbot() (*Userbot, error) {
 			return nil, err
 		}
 		userbot.selfId = user.ID
-		if commanderId, ok := os.LookupEnv("COMMANDER_ID"); ok {
-			commanderIdInt64, err := strconv.ParseInt(commanderId, 10, 64)
+		if commanderId, ok := os.LookupEnv("COMMANDERS_ID"); ok {
+			commanderIdInt64 := []int64{}
+			for _, s := range strings.Split(commanderId, ",") {
+				if i, err := strconv.ParseInt(s, 10, 64); err == nil {
+					commanderIdInt64 = append(commanderIdInt64, i)
+				}
+			}
 			if err != nil {
 				return nil, errors.New("COMMANDER_ID must be an integer")
 			}
 			userbot.SetCommanderId(commanderIdInt64)
 		} else {
-			userbot.SetCommanderId(user.ID)
+			userbot.SetCommanderId([]int64{user.ID})
 		}
 		return userbot, nil
 	}
