@@ -25,7 +25,7 @@ func shellHandler(m *tg.NewMessage) error {
 func shell(cmd string) (string, error) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	proc := exec.Command("sh", "-c", args)
+	proc := exec.Command("sh", "-c", cmd)
 	proc.Stdout = &stdout
 	proc.Stderr = &stderr
 	err := proc.Run()
