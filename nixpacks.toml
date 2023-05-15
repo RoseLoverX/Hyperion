@@ -1,0 +1,4 @@
+providers = ["...", "python"]
+
+[phases.setup]
+nixPkgs = ["...", "ffmpeg", "wget"]
