@@ -18,7 +18,7 @@ func shellHandler(m *tg.NewMessage) error {
 	if err != nil && out == "" {
 		return EoR(m, "<code>"+err.Error()+"</code>")
 	}
-	return EoR(m, "<code>"+strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(out, "\t", ""), "\r", ""), "\v", "")+"</code>")
+	return EoR(m, "<code>"+strings.TrimSpace(strings.TrimPrefix(strings.TrimSuffix(out, "\n"), "\n"))+"</code>")
 }
 
 func shell(cmd string) (string, error) {
