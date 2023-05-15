@@ -5,6 +5,7 @@ import (
 	"main/client"
 	"os/exec"
 	"strings"
+	"bytes"
 
 	tg "github.com/amarnathcjd/gogram/telegram"
 )
@@ -22,6 +23,8 @@ func shellHandler(m *tg.NewMessage) error {
 }
 
 func shell(cmd string) (string, error) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
 	proc := exec.Command("sh", "-c", args)
 	proc.Stdout = &stdout
 	proc.Stderr = &stderr
@@ -44,9 +47,8 @@ func getPreview(m *tg.NewMessage) error {
 		} else if req.Document != nil {
 			m.RespondMedia(req.Document, tg.MediaOptions{Caption: caption})
 		} else {
-			
 			m.Respond(caption)
-			}
+                }
 	case *tg.WebPageEmpty:
 		m.Reply("No Preview Found")
 	}
