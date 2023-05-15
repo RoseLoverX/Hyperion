@@ -22,12 +22,11 @@ func shellHandler(m *tg.NewMessage) error {
 }
 
 func shell(cmd string) (string, error) {
-	command := exec.Command("bash", "-c", cmd)
-	out, err := command.CombinedOutput()
-	if err != nil {
-		return "", err
-	}
-	return string(out), nil
+	proc := exec.Command("sh", "-c", args)
+	proc.Stdout = &stdout
+	proc.Stderr = &stderr
+	err := proc.Run()
+	return stdout.String() + stderr.String(), err
 }
 
 func getPreview(m *tg.NewMessage) error {
@@ -40,11 +39,14 @@ func getPreview(m *tg.NewMessage) error {
 	switch req := req.(type) {
 	case *tg.WebPageObj:
 		caption := req.Title + "\n" + req.Description + "\n<b>Embed Url:</b> " + req.EmbedURL
-		if req.Type == "photo" && req.Photo != nil {
+		if req.Photo != nil {
 			m.RespondMedia(req.Photo, tg.MediaOptions{Caption: caption})
 		} else if req.Document != nil {
 			m.RespondMedia(req.Document, tg.MediaOptions{Caption: caption})
-		}
+		} else {
+			
+			m.Respond(caption)
+			}
 	case *tg.WebPageEmpty:
 		m.Reply("No Preview Found")
 	}
