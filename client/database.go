@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	mongo "go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,7 +13,6 @@ import (
 var (
 	DB            *mongo.Client
 	IsDBConnected bool
-	DB_URL        string
 )
 
 func NewMongo(url string) (*mongo.Client, error) {
@@ -24,7 +24,7 @@ func NewMongo(url string) (*mongo.Client, error) {
 }
 
 var (
-	SUDOERS_DB = DB.Database("hyperion").Collection("sudoers")
+	SUDOERS_DB *mongo.Collection
 )
 
 func AddSudoer(id int64) error {
@@ -123,7 +123,11 @@ func IsCachedSudoer(id int64) bool {
 
 func init() {
 	IsDBConnected = false
-	mongoDb, err := NewMongo("mongodb://localhost:27017")
+	var DB_URL string
+	if dbUrl, ok := os.LookupEnv("MONGO_URL"); ok {
+		DB_URL = dbUrl
+	}
+	mongoDb, err := NewMongo(DB_URL)
 	if err != nil {
 		log.Println("Hyperion: Failed to init to MongoDB")
 		return
@@ -134,4 +138,5 @@ func init() {
 	}
 	IsDBConnected = true
 	DB = mongoDb
+	SUDOERS_DB = DB.Database("hyperion").Collection("sudoers")
 }

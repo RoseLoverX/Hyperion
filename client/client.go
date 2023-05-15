@@ -70,9 +70,6 @@ func (u *Userbot) Start() error {
 func InitiallizeUserbot() (*Userbot, error) {
 	env.Load()
 	if stringSession, ok := os.LookupEnv("STRING_SESSION"); ok {
-		if dbUrl, ok := os.LookupEnv("MONGO_URL"); ok {
-			DB_URL = dbUrl
-		}
 		userbot, err := NewUserbot(stringSession)
 		if err != nil {
 			return nil, err
