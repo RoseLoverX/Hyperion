@@ -103,7 +103,7 @@ func GetSudoers() []int64 {
 		if err != nil {
 			return []int64{}
 		}
-		result = append(result, int64(data["id"].(int32)))
+		result = append(result, data["id"].(int64))
 	}
 	return result
 }
