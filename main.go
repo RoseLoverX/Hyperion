@@ -6,6 +6,5 @@ import (
 )
 
 func main() {
-	//
 	client.UserBot.Idle()
 }
