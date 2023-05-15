@@ -1,1 +1,2 @@
+[phases.setup]
 nixPkgs = ["...", "neofetch"]
