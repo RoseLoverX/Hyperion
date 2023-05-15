@@ -12,13 +12,13 @@ import (
 func shellHandler(m *tg.NewMessage) error {
 	cmd := m.Args()
 	if cmd == "" {
-		return EoR(m, "Please Provide A Command")
+		return EoR(m, "Please provide a command")
 	}
 	out, err := shell(cmd)
-	if err != nil {
+	if err != nil && out == "" {
 		return EoR(m, "<code>"+err.Error()+"</code>")
 	}
-	return EoR(m, "<code>"+strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(out, "\t", ""), "\r", ""), "\n", "")+"</code>")
+	return EoR(m, "<code>"+strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(out, "\t", ""), "\r", ""), "\v", "")+"</code>")
 }
 
 func shell(cmd string) (string, error) {
@@ -53,7 +53,7 @@ func getPreview(m *tg.NewMessage) error {
 
 func AddSudoHandler(m *tg.NewMessage) error {
 	if m.SenderID() != client.UserBot.CommanderId() {
-		m.Reply("You Are Not My Commander!")
+		m.Reply("You are not my commander!")
 		return nil
 	}
 	var userId int64 = 0
@@ -67,7 +67,7 @@ func AddSudoHandler(m *tg.NewMessage) error {
 	} else {
 		userArgs := m.Args()
 		if userArgs == "" {
-			m.Reply("Please Provide A User Id")
+			m.Reply("Please provide a user id")
 			return nil
 		}
 		userPeer, err := client.UserBot.GetSendablePeer(userArgs)
@@ -78,15 +78,15 @@ func AddSudoHandler(m *tg.NewMessage) error {
 		userId = client.UserBot.GetPeerID(userPeer)
 	}
 	if userId == 0 {
-		m.Reply("Please Provide A User Id")
+		m.Reply("Please provide a valid user id")
 		return nil
 	}
 	if client.IsCachedSudoer(int64(userId)) {
-		m.Reply("User Already Sudoer")
+		m.Reply("User already sudoer")
 		return nil
 	}
 	client.AddSudoer(int64(userId))
-	if _, err := m.Reply("User Added As Sudoer"); err != nil {
+	if _, err := m.Reply("User added as sudoer"); err != nil {
 		return err
 	}
 	return nil
@@ -94,7 +94,7 @@ func AddSudoHandler(m *tg.NewMessage) error {
 
 func RemoveSudoHandler(m *tg.NewMessage) error {
 	if m.SenderID() != client.UserBot.CommanderId() {
-		m.Reply("You Are Not My Commander!")
+		m.Reply("You are not my commander!")
 		return nil
 	}
 	var userId int64 = 0
@@ -108,7 +108,7 @@ func RemoveSudoHandler(m *tg.NewMessage) error {
 	} else {
 		userArgs := m.Args()
 		if userArgs == "" {
-			m.Reply("Please Provide A User Id")
+			m.Reply("Please provide a user id")
 			return nil
 		}
 		userPeer, err := client.UserBot.GetSendablePeer(userArgs)
@@ -119,15 +119,15 @@ func RemoveSudoHandler(m *tg.NewMessage) error {
 		userId = client.UserBot.GetPeerID(userPeer)
 	}
 	if userId == 0 {
-		m.Reply("Please Provide A User Id")
+		m.Reply("Please provide a valid user id")
 		return nil
 	}
 	if !client.IsCachedSudoer(int64(userId)) {
-		m.Reply("User Not Sudoer")
+		m.Reply("User not sudoer")
 		return nil
 	}
 	client.RemoveSudoer(int64(userId))
-	if _, err := m.Reply("User Removed As Sudoer"); err != nil {
+	if _, err := m.Reply("User removed as sudoer"); err != nil {
 		return err
 	}
 	return nil
@@ -136,7 +136,7 @@ func RemoveSudoHandler(m *tg.NewMessage) error {
 func ListSudoHandler(m *tg.NewMessage) error {
 	sudoers := client.GetSudoers()
 	if len(sudoers) == 0 {
-		m.Reply("No Sudoers Found")
+		m.Reply("No sudoers found")
 		return nil
 	}
 	var msg string = "<b>My Sudoers:</b>\n"

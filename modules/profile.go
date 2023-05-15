@@ -61,9 +61,22 @@ func setPfpHandler(m *tg.NewMessage) error {
 	return EoR(m, "Profile Picture Changed!")
 }
 
+func setUsernameHandler(m *tg.NewMessage) error {
+	username := m.Args()
+	if username == "" {
+		return EoR(m, "error: please provide a username")
+	}
+	_, err := client.UserBot.AccountUpdateUsername(username)
+	if err != nil {
+		return EoR(m, err.Error())
+	}
+	return EoR(m, "Username changed to "+username+"!")
+}
+
 func init() {
 	client.RegCmd("setname", setNameHandler)
 	client.RegCmd("setlastname", setLastNameHandler)
 	client.RegCmd("setbio", setBioHandler)
 	client.RegCmd("setpfp", setPfpHandler)
+	client.RegCmd("setusername", setUsernameHandler)
 }
