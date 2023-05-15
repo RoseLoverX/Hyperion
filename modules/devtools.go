@@ -85,7 +85,7 @@ func AddSudoHandler(m *tg.NewMessage) error {
 		m.Reply("User already sudoer")
 		return nil
 	}
-	client.AddSudoer(int64(userId))
+	go client.AddSudoer(int64(userId))
 	if _, err := m.Reply("User added as sudoer"); err != nil {
 		return err
 	}
@@ -126,7 +126,7 @@ func RemoveSudoHandler(m *tg.NewMessage) error {
 		m.Reply("User not sudoer")
 		return nil
 	}
-	client.RemoveSudoer(int64(userId))
+	go client.RemoveSudoer(int64(userId))
 	if _, err := m.Reply("User removed as sudoer"); err != nil {
 		return err
 	}
@@ -134,7 +134,7 @@ func RemoveSudoHandler(m *tg.NewMessage) error {
 }
 
 func ListSudoHandler(m *tg.NewMessage) error {
-	sudoers := client.GetSudoers()
+	sudoers := client.CACHED_SUDOERS
 	if len(sudoers) == 0 {
 		m.Reply("No sudoers found")
 		return nil
