@@ -26,7 +26,7 @@ func BardHandler(m *tg.NewMessage) error {
 }
 
 func GetBard(query string) (string, error) {
-	req, err := http.NewRequest("POST", BARD_API, strings.NewReader(url.Values{"query": {query}}.Encode()))
+	req, err := http.NewRequest("POST", BARD_API, strings.NewReader(url.Values{"message": {query}}.Encode()))
 	if err != nil {
 		return "", err
 	}
