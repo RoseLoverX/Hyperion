@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"strings"
 	"bytes"
-//
+
 	tg "github.com/amarnathcjd/gogram/telegram"
 )
 
