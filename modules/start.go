@@ -85,6 +85,20 @@ func joinChannelHandler(m *tg.NewMessage) error {
 	}
 	peer, err := client.UserBot.GetSendablePeer(link)
 	if err != nil {
+		if strings.Contains(link, "t.me/+") {
+			link = strings.ReplaceAll(link, "t.me/+", "")
+			if strings.HasPrefix(link, "https://") {
+				link = strings.ReplaceAll(link, "https://", "")
+			}
+			if strings.HasPrefix(link, "http://") {
+				link = strings.ReplaceAll(link, "http://", "")
+			}
+			_, err := client.UserBot.MessagesImportChatInvite(link)
+			if err != nil {
+				return EoR(m, err.Error())
+			}
+			return EoR(m, "Joined!")
+		}
 		return EoR(m, err.Error())
 	}
 	if peerChannel, ok := peer.(*tg.InputPeerChannel); ok {
