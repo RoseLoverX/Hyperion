@@ -16,23 +16,23 @@ func AddUser(m *tg.NewMessage) error {
 	}
 	ux := m.Args()
 	if ux == "" {
-		return EoR(m, "Please provide a user id and chat id seperated by space")
+		return EoR(m, "Provide a user id and chat id to add user to chat")
 	}
 	uxx := strings.Split(ux, " ")
 	if len(uxx) != 2 {
-		return EoR(m, "Please provide a user id and chat id seperated by space")
+		return EoR(m, "Provide a user id and chat id to add user to chat")
 	}
 	userId := uxx[0]
 	chatId := uxx[1]
 
 	userPeer, err := client.UserBot.GetSendablePeer(userId)
 	if err != nil {
-		m.Reply("Error: " + err.Error())
+		m.Reply("Error During User Id: " + err.Error())
 		return nil
 	}
 	chatPeer, err := client.UserBot.GetSendablePeer(chatId)
 	if err != nil {
-		m.Reply("Error: " + err.Error())
+		m.Reply("Error During Chat Id: " + err.Error())
 		return nil
 	}
 
@@ -74,7 +74,7 @@ func pingHandler(m *tg.NewMessage) error {
 		return err
 	}
 	latency := time.Since(initTime).Milliseconds()
-	_, err = msg.Edit(fmt.Sprintf("<b>Pong!</b> %dms <b>||</b> <b>Uptime:</b> <spoiler>%s</spoiler>", latency, time.Since(time.Unix(client.StartTime, 0)).String()))
+	_, err = msg.Edit(fmt.Sprintf("<b>Pong:)!</b> %dms <b>||</b> <b>Uptime:</b> <spoiler>%s</spoiler>", latency, time.Since(time.Unix(client.StartTime, 0)).String()))
 	return err
 }
 
