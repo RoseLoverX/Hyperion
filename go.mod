@@ -3,7 +3,7 @@ module main
 go 1.20
 
 require (
-	github.com/amarnathcjd/gogram v0.0.0-20230513165303-a7db46d2c429
+	github.com/amarnathcjd/gogram v0.0.0-20241015200724-884076c4bc9d
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.11.6
 )
