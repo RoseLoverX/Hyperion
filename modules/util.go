@@ -23,3 +23,13 @@ func EorW(m *tg.NewMessage, msg string) (*tg.NewMessage, error) {
 		return m.Reply(msg)
 	}
 }
+
+func PrettyPrint(m *tg.NewMessage, msg string) error {
+	if client.UserBot.CommanderId() == client.UserBot.SelfId() {
+		_, err := m.Edit("<pre>" + msg + "</pre>")
+		return err
+	} else {
+		_, err := m.Reply("<pre>"+msg+"</pre>", tg.SendOptions{ParseMode: "HTML"})
+		return err
+	}
+}
