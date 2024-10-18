@@ -7,8 +7,15 @@ import (
 )
 
 type Handler func(message *telegram.NewMessage) error
+type CallbackHandler func (message *telegram.CallbackQuery) error 
 
-const CMD_PREFIXES = "!."
+const CMD_PREFIXES = "!.?"
+var cCMDS = make(map[string]CallbackHandler)
+
+func RegCallback(command string, handler CallbackHandler) {
+	UserBot.AddCallbackHandler(command, handler)
+	cCMDS[command] = handler
+}
 
 var CMDS = make(map[string]Handler)
 
